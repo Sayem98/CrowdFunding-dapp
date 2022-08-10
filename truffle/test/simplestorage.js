@@ -65,6 +65,6 @@ contract("CrowdFunding", () => {
   it("Should get project of ith index", async () => {
     const instance = await CrowdFunding.deployed();
     project = await instance.projects(0);
-    console;
+    //console.log(project.recipient);
   });
 });
