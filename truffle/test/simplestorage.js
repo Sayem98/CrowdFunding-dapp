@@ -22,13 +22,13 @@ contract("CrowdFunding", () => {
     const accounts = await web3.eth.getAccounts();
     // console.log(Web3.utils.toWei("1", "ether"));
     const balance = await instance.TotalDonation();
-    //console.log(balance.toString());
+    console.log(balance.toString());
     await instance.Donate({
       from: accounts[0],
       value: Web3.utils.toWei("1", "ether"),
     });
     const newBalance = await instance.TotalDonation();
-    //console.log(newBalance.toString());
+    // console.log(newBalance);
     //console.log(balance + Web3.utils.toWei("1", "ether").toString());
     assert(
       (balance + Web3.utils.toWei("1", "ether")).toString() ==
