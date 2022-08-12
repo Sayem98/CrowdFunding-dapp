@@ -22,7 +22,7 @@ contract("CrowdFunding", () => {
     const accounts = await web3.eth.getAccounts();
     // console.log(Web3.utils.toWei("1", "ether"));
     const balance = await instance.TotalDonation();
-    console.log(balance.toString());
+    //console.log(balance.toString());
     await instance.Donate({
       from: accounts[0],
       value: Web3.utils.toWei("1", "ether"),
@@ -51,7 +51,7 @@ contract("CrowdFunding", () => {
     const accounts = await web3.eth.getAccounts();
     //console.log(web3.eth.accounts[0]);
     const ammount = Web3.utils.toWei("1", "ether");
-    instance.CreateProject(data, accounts[0], ammount);
+    await instance.CreateProject(data, accounts[0], ammount);
   });
 
   it("should be 1 Eth", async () => {
@@ -66,5 +66,34 @@ contract("CrowdFunding", () => {
     const instance = await CrowdFunding.deployed();
     project = await instance.projects(0);
     //console.log(project.recipient);
+  });
+
+  it("should get all the projects", async () => {
+    const instance = await CrowdFunding.deployed();
+    //Getting number of projects.
+    let number_of_projects = await instance.no_of_projects();
+    //console.log(number_of_projects.toNumber());
+    assert(number_of_projects == 1);
+
+    const data = "Name: My Project; Description: It is a good project";
+
+    //const ammount = "1000000000000000000";
+    const accounts = await web3.eth.getAccounts();
+    //console.log(web3.eth.accounts[0]);
+    const ammount = Web3.utils.toWei("1", "ether");
+    await instance.CreateProject(data, accounts[0], ammount);
+    //console.log("ok");
+    number_of_projects = await instance.no_of_projects();
+    //console.log(number_of_projects.toNumber());
+    assert(number_of_projects == 2);
+
+    let projects = [];
+
+    //Getting all the project.
+    for (let i = 0; i < number_of_projects; i++) {
+      projects[i] = await instance.projects(i);
+    }
+    // console.log(projects[0].is_created);
+    assert(projects.length == 2);
   });
 });
