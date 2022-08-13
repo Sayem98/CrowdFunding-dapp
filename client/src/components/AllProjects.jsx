@@ -6,10 +6,12 @@ import Card from "react-bootstrap/Card";
 import image from "../images/project.png";
 import { useEffect } from "react";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 function AllProjects() {
   const {
     state: { contract, accounts, web3 },
   } = useEth();
+  const navigate = useNavigate();
 
   const [projects, setProjects] = useState();
 
@@ -43,12 +45,21 @@ function AllProjects() {
               <Card.Img variant="top" src={image} />
               <Card.Body>
                 <Card.Title>{project.data.split(";")[0]}</Card.Title>
-                <Card.Text>{project.data.split(";")[1]}</Card.Text>
+                <Card.Text>
+                  {project.data.split(";")[1].slice(0, 50) + "..."}
+                </Card.Text>
                 <Card.Text>
                   {web3.utils.fromWei(project.ammount.toString(), "ether") +
                     "ETH"}
+                  &nbsp;
+                  <Button
+                    onClick={() => {
+                      navigate(`project/${index}`);
+                    }}
+                  >
+                    Details
+                  </Button>
                 </Card.Text>
-                <Button variant="primary">Details</Button>
               </Card.Body>
             </Card>
           ))

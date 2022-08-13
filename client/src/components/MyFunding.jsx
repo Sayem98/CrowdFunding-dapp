@@ -6,7 +6,7 @@ import classes from "../styles/MyFunding.module.css";
 
 function MyFunding() {
   const {
-    state: { contract, accounts },
+    state: { contract, accounts, web3 },
   } = useEth();
 
   const [totaldonation, setTotalDonation] = useState();
@@ -16,9 +16,9 @@ function MyFunding() {
       const balance = await contract.methods
         .contributors(accounts[0])
         .call({ from: accounts[0] });
-      console.log(balance.toString());
+      //console.log(balance.toString());
 
-      setTotalDonation(balance.toString());
+      setTotalDonation(web3.utils.fromWei(balance).toString());
     };
     if (contract) {
       GetTotalFunding();
@@ -28,7 +28,7 @@ function MyFunding() {
     <div className={classes.funding}>
       <p>
         My total funding is:&nbsp;
-        <b>{totaldonation ? totaldonation : "Wating for data !"}</b>
+        <b>{totaldonation ? totaldonation + " ETH" : "Wating for data !"}</b>
       </p>
     </div>
   );

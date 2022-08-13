@@ -1,12 +1,12 @@
 .project {
   border: 2px solid;
   width: 100vh;
-  height: 85vh;
+  height: 80vh;
   margin-left: 15%;
   margin-top: 3%;
   border-radius: 10px;
   text-align: center;
-  font-size: 2vw;
-
+  font-size: 1.5vw;
+  padding: 1rem;
   align-self: center;
 }
