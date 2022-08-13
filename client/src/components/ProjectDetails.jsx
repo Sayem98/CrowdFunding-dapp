@@ -28,6 +28,15 @@ function ProjectDetails() {
       getProject();
     }
   }, [id, accounts, contract, contributor]);
+
+  const handleClick = () => {
+    const Vote = async () => {
+      await contract.methods.Vote(id).send({ from: accounts[0] });
+    };
+    if (contract) {
+      Vote();
+    }
+  };
   return (
     <div className={classes.project}>
       {project ? (
@@ -51,7 +60,9 @@ function ProjectDetails() {
         "Getting data, Please wait."
       )}
 
-      <Button variant="secondary">Vote</Button>
+      <Button variant="secondary" onClick={handleClick}>
+        Vote
+      </Button>
     </div>
   );
 }
