@@ -3,14 +3,14 @@ import Container from "react-bootstrap/Container";
 import Form from "react-bootstrap/Form";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
-import NavDropdown from "react-bootstrap/NavDropdown";
+
 import classes from "../styles/NavBar.module.css";
+import { Link } from "react-router-dom";
 
 function NavBar() {
   return (
     <Navbar bg="light" expand="lg" className={classes.navbar}>
       <Container fluid>
-        <Navbar.Brand href="#">(:::)</Navbar.Brand>
         <Navbar.Toggle aria-controls="navbarScroll" />
         <Navbar.Collapse id="navbarScroll">
           <Nav
@@ -18,10 +18,20 @@ function NavBar() {
             style={{ maxHeight: "100px" }}
             navbarScroll
           >
-            <Nav.Link href="#action1">Home</Nav.Link>
-            <Nav.Link href="#action2">Projects</Nav.Link>
+            <Link to="/" className={classes.link}>
+              Home
+            </Link>
 
-            <Nav.Link href="#">Contact us</Nav.Link>
+            <Link to="/" className={classes.link}>
+              Projects
+            </Link>
+
+            <Link to="create" className={classes.link}>
+              Create
+            </Link>
+            <Link to="/" className={classes.link}>
+              Contact Us
+            </Link>
           </Nav>
           <Form className="d-flex">
             <Form.Control

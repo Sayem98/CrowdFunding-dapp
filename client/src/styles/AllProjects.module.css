@@ -1,0 +1,5 @@
+.allprojects {
+  padding: 1rem;
+  display: flex;
+  justify-content: center;
+}

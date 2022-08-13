@@ -1,0 +1,27 @@
+.createproject {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  border: 2px solid black;
+  border-radius: 10px;
+  padding: 2rem;
+  width: 80%;
+  margin-left: 10%;
+  margin-top: 5%;
+  height: 80vh;
+}
+.createproject h1 {
+  border: 2px solid black;
+  padding: 0.1rem;
+  display: inline;
+  border-radius: 10px;
+}
+.createproject form {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 1rem;
+  border: 2px solid;
+  border-radius: 10px;
+  height: 100vh;
+}

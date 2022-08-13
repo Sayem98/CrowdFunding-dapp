@@ -1,3 +1,9 @@
 .navbar {
   border-radius: 10px;
 }
+
+.link {
+  color: black;
+  margin-right: 10px;
+  text-decoration: none;
+}
