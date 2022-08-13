@@ -3,6 +3,7 @@ import { useEth } from "../contexts/EthContext";
 import classes from "../styles/Accounts.module.css";
 import { ListGroup } from "react-bootstrap";
 import MyFunding from "./MyFunding";
+import Fund from "./Fund";
 
 function Accounts() {
   const {
@@ -19,6 +20,7 @@ function Accounts() {
           : "Waiting for connection with MetaMask"}
       </div>
       <MyFunding />
+      <Fund />
       <div className={classes.votes}>
         1. My Project - Yes
         <br />
