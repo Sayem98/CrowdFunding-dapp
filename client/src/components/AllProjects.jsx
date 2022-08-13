@@ -44,6 +44,10 @@ function AllProjects() {
               <Card.Body>
                 <Card.Title>{project.data.split(";")[0]}</Card.Title>
                 <Card.Text>{project.data.split(";")[1]}</Card.Text>
+                <Card.Text>
+                  {web3.utils.fromWei(project.ammount.toString(), "ether") +
+                    "ETH"}
+                </Card.Text>
                 <Button variant="primary">Details</Button>
               </Card.Body>
             </Card>
