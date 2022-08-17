@@ -13,6 +13,10 @@ function ProjectDetails() {
     state: { contract, accounts, web3 },
   } = useEth();
 
+  // eslint-disable-next-line
+  const [change, setChange] = useState(false);
+  const [vote, setVote] = useState(false);
+
   useEffect(() => {
     const getProject = async () => {
       const _project = await contract.methods
@@ -24,10 +28,45 @@ function ProjectDetails() {
         .call({ from: accounts[0] });
       setContributor(_contributor);
     };
+    console.log(project);
+
+    //Check events
+    const checkEvents = async () => {
+      await contract.events.EventVote((error, event) => {
+        setChange((prevChange) => {
+          return !prevChange;
+        });
+      });
+
+      await contract.events.EventPay((error, event) => {
+        setChange((prevChange) => {
+          return !prevChange;
+        });
+      });
+    };
+
+    const checkPastVoteEvent = async () => {
+      await contract
+        .getPastEvents("EventVote", {
+          filter: {
+            _address: accounts[0],
+            _no_of_project: id,
+          },
+          fromBlock: 0,
+          toBLock: "latest",
+        })
+        .then((events) => {
+          if (events.length !== 0) {
+            setVote(true);
+          }
+        });
+    };
     if (contract) {
       getProject();
+      checkEvents();
+      checkPastVoteEvent();
     }
-  }, [id, accounts, contract, contributor]);
+  }, [id, accounts, contract, contributor, project, change]);
 
   const handleClick = () => {
     const Vote = async () => {
@@ -68,13 +107,25 @@ function ProjectDetails() {
       ) : (
         "Getting data, Please wait."
       )}
-      <Button variant="secondary" onClick={handleClick}>
-        Vote
-      </Button>
+      {vote ? (
+        "Already Voted"
+      ) : (
+        <Button variant="secondary" onClick={handleClick}>
+          Vote
+        </Button>
+      )}
       &nbsp;
-      <Button variant="secondary" onClick={handleClick2}>
-        Pay
-      </Button>
+      {project ? (
+        project.is_completed ? (
+          "Already payed"
+        ) : (
+          <Button variant="secondary" onClick={handleClick2}>
+            Pay
+          </Button>
+        )
+      ) : (
+        "Waiting"
+      )}
     </div>
   );
 }

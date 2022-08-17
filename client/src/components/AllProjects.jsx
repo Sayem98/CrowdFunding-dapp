@@ -12,8 +12,9 @@ function AllProjects() {
     state: { contract, accounts, web3 },
   } = useEth();
   const navigate = useNavigate();
-
   const [projects, setProjects] = useState();
+  // eslint-disable-next-line
+  const [change, setChange] = useState(false);
 
   useEffect(() => {
     const getAllProjects = async () => {
@@ -32,8 +33,18 @@ function AllProjects() {
       setProjects(all_projects);
     };
 
+    //Check events
+    const checkEvent = async () => {
+      await contract.events.EventProject((error, event) => {
+        setChange((prevChage) => {
+          return !prevChage;
+        });
+      });
+    };
+
     if (contract) {
       getAllProjects();
+      checkEvent();
     }
   }, [contract, accounts]);
 

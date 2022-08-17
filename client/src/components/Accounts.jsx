@@ -1,14 +1,29 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useEth } from "../contexts/EthContext";
 import classes from "../styles/Accounts.module.css";
 import { ListGroup } from "react-bootstrap";
 import MyFunding from "./MyFunding";
 import Fund from "./Fund";
+import { useState } from "react";
 
 function Accounts() {
   const {
-    state: { accounts },
+    state: { contract, accounts },
   } = useEth();
+  // eslint-disable-next-line
+  const [change, setChange] = useState(false);
+  useEffect(() => {
+    const checkEvent = async () => {
+      await contract.events.EventDonate((error, event) => {
+        setChange((prevChange) => {
+          return !prevChange;
+        });
+      });
+    };
+    if (contract) {
+      checkEvent();
+    }
+  }, [contract]);
   return (
     <div className={classes.accounts}>
       <div className={classes.account}>

@@ -28,13 +28,13 @@ contract CrowdFunding{
     event EventDonate(address indexed _address, uint _value);
     event EventProject(uint indexed _no_of_project);
     event EventPay(uint indexed _receipient, uint _ammount);
-    event EventVote(address indexed _address, uint no_of_project, uint _no_of_voters);
+    event EventVote(address indexed _address, uint indexed no_of_project, uint _no_of_voters);
 
     //Initializing the contract with minimum contribution.
     constructor(uint _min_donation){
         creator = msg.sender;
         min_donation = _min_donation;
-
+        
     }
     
     //Donate money...
@@ -130,11 +130,9 @@ contract CrowdFunding{
 
    
 
-    function GetAProject(uint _index) public view returns(string memory, address payable, uint, bool, uint){
-        //Getting the project.
-        Project storage project = projects[_index];
-        require(project.is_created == true, 'Not created yet.');
-        
-        return(project.data, project.recipient, project.ammount, project.is_completed, project.no_of_voters);
-    }
+    // function GetMyVotes(uint _no_of_project) public view returns(bool){
+    //     Project storage project = projects[_no_of_project];
+    //     return project.votes[msg.sender];
+
+    // }
 }
