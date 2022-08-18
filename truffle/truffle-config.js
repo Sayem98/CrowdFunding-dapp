@@ -5,7 +5,7 @@
  * them to suit your project as necessary.
  *
  * More information about configuration can be found at:
- * 
+ *
  * https://trufflesuite.com/docs/truffle/reference/configuration
  *
  * To deploy via Infura you'll need a wallet provider (like @truffle/hdwallet-provider)
@@ -22,7 +22,7 @@
 // const mnemonic = process.env["MNEMONIC"];
 // const infuraProjectId = process.env["INFURA_PROJECT_ID"];
 
-// const HDWalletProvider = require('@truffle/hdwallet-provider');
+const HDWalletProvider = require("@truffle/hdwallet-provider");
 
 module.exports = {
   /**
@@ -44,9 +44,9 @@ module.exports = {
     // options below to some value.
     //
     development: {
-      host: "127.0.0.1",     // Localhost (default: none)
-      port: 8545,            // Standard Ethereum port (default: none)
-      network_id: "*",       // Any network (default: none)
+      host: "127.0.0.1", // Localhost (default: none)
+      port: 8545, // Standard Ethereum port (default: none)
+      network_id: "*", // Any network (default: none)
     },
     //
     // An additional network, but with some advanced options…
@@ -61,15 +61,21 @@ module.exports = {
     //
     // Useful for deploying to a public network.
     // Note: It's important to wrap the provider as a function to ensure truffle uses a new provider every time.
-    // goerli: {
-    //   provider: () => new HDWalletProvider(mnemonic, `https://goerli.infura.io/v3/${infuraProjectId}`),
-    //   network_id: 5,       // Goerli's network id
-    //   chain_id: 5,         // Goerli's chain id
-    //   gas: 5500000,        // Gas limit used for deploys.
-    //   confirmations: 2,    // # of confirmations to wait between deployments. (default: 0)
-    //   timeoutBlocks: 200,  // # of blocks before a deployment times out  (minimum/default: 50)
-    //   skipDryRun: true     // Skip dry run before migrations? (default: false for public nets)
-    // },
+    rinkeby: {
+      provider: () =>
+        new HDWalletProvider(
+          "nature grain net erase damp front tennis soon fade metal rather toss",
+          "https://rinkeby.infura.io/v3/760e934f6b0541519abd83bd611acbfd"
+        ),
+      network_id: 4, // Goerli's network id
+      // chain_id: 5, // Goerli's chain id
+      gas: 5500000, // Gas limit used for deploys.
+
+      // # of confirmations to wait between deployments. (default: 0)
+      // # of blocks before a deployment times out  (minimum/default: 50)
+
+      // Skip dry run before migrations? (default: false for public nets)
+    },
     //
     // Useful for private networks
     // private: {
@@ -87,7 +93,7 @@ module.exports = {
   // Configure your compilers
   compilers: {
     solc: {
-      version: "0.8.14",      // Fetch exact version from solc-bin (default: truffle's version)
+      version: "0.8.14", // Fetch exact version from solc-bin (default: truffle's version)
       // docker: true,        // Use "0.5.1" you've installed locally with docker (default: false)
       // settings: {          // See the solidity docs for advice about optimization and evmVersion
       //  optimizer: {
@@ -96,7 +102,7 @@ module.exports = {
       //  },
       //  evmVersion: "byzantium"
       // }
-    }
+    },
   },
 
   // Truffle DB is currently disabled by default; to enable it, change enabled:
