@@ -18,6 +18,7 @@ function ProjectDetails() {
   const [vote, setVote] = useState(false);
 
   useEffect(() => {
+    // console.log("Running...");
     const getProject = async () => {
       const _project = await contract.methods
         .projects(id)
@@ -28,7 +29,7 @@ function ProjectDetails() {
         .call({ from: accounts[0] });
       setContributor(_contributor);
     };
-    console.log(project);
+    // console.log(project);
 
     //Check events
     const checkEvents = async () => {
@@ -39,6 +40,12 @@ function ProjectDetails() {
       });
 
       await contract.events.EventPay((error, event) => {
+        setChange((prevChange) => {
+          return !prevChange;
+        });
+      });
+
+      await contract.events.EventDonate((error, event) => {
         setChange((prevChange) => {
           return !prevChange;
         });
@@ -66,7 +73,7 @@ function ProjectDetails() {
       checkEvents();
       checkPastVoteEvent();
     }
-  }, [id, accounts, contract, contributor, project, change]);
+  }, [id, accounts, contract, change]);
 
   const handleClick = () => {
     const Vote = async () => {
@@ -91,7 +98,7 @@ function ProjectDetails() {
         <>
           <h3>{project.data.split(";")[0]}</h3>
           <p>{project.data.split(";")[1]}</p>
-          <label>Receipient</label>
+          <label>Receipient Add.</label>
           <h4>{project.recipient}</h4>
           <p>
             Target:
@@ -119,9 +126,12 @@ function ProjectDetails() {
         project.is_completed ? (
           "Already payed"
         ) : (
-          <Button variant="secondary" onClick={handleClick2}>
-            Pay
-          </Button>
+          <>
+            <Button variant="secondary" onClick={handleClick2}>
+              Pay
+            </Button>
+            <p>* Positive vote must be majority for payment</p>
+          </>
         )
       ) : (
         "Waiting"

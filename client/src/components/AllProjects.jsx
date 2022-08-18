@@ -50,7 +50,7 @@ function AllProjects() {
 
   return (
     <div className={classes.allprojects}>
-      {projects
+      {projects && projects.length !== 0
         ? projects.map((project, index) => (
             <Card style={{ width: "18rem" }} key={index}>
               <Card.Img variant="top" src={image} />
@@ -74,7 +74,7 @@ function AllProjects() {
               </Card.Body>
             </Card>
           ))
-        : ""}
+        : "No Projects Yet"}
     </div>
   );
 }

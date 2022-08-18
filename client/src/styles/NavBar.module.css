@@ -1,5 +1,8 @@
 .navbar {
   border-radius: 10px;
+  justify-self: center;
+  margin-left: 30%;
+  margin-right: 30%;
 }
 
 .link {

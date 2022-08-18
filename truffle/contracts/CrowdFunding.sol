@@ -113,8 +113,9 @@ contract CrowdFunding{
     // MAjority votes for the project to be funded then the ammount is sent 
     // to the receipient.
     function Pay(uint _no_of_project) public{
-        require(msg.sender == creator, 'Permission denied !');
+        
         Project storage project = projects[_no_of_project];
+        require(project.is_created == true, 'This Project is not created yet !');
         require(TotalDonation()>= project.ammount, 'Sorry not enough Money to pay !');
         require(project.no_of_voters > no_contributor/2, 'Majority does not support');
 
@@ -123,6 +124,13 @@ contract CrowdFunding{
 
         
     }
+
+    function getBalance() public view returns(uint){
+        
+        return address(this).balance;
+    }
+
+    
 
     // function Refund() public {
     //     //Need to think the logic.
