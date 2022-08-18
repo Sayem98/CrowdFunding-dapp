@@ -11,7 +11,7 @@ function Fund() {
     const Donate = async () => {
       await contract.methods
         .Donate()
-        .send({ from: accounts[0], value: web3.utils.toWei("1", "ether") });
+        .send({ from: accounts[0], value: web3.utils.toWei("0.1", "ether") });
     };
     if (contract) {
       Donate();
